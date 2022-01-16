@@ -1,0 +1,35 @@
+body {
+  font-family: "Harry Potter", sans-serif;
+  color: whitesmoke;
+  background-image: url(https://c.tenor.com/26KgBqLSQUgAAAAC/stars-star-gazing.gif);
+}
+#hide {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* #hide:hover {
+    white-space: normal;
+    overflow: visible;
+    width: 100%;
+  }  */
+.add {
+  color: black;
+  font-size: 50px;
+}
+
+.infoRead {
+  display: grid;
+  grid-template-columns: repeat(2, 21%);
+  margin-top: 40px;
+  justify-content: center;
+}
+.cardImages {
+  background-color: black;
+}
+
+.cardImages:hover {
+  transform: scale(1.03);
+  box-shadow: 20px 20px 20px rgb(44, 86, 163);
+}
