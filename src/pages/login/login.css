@@ -1,0 +1,17 @@
+.show {
+    display: block;
+    margin-left: 35%;
+    transition: 800ms;
+    opacity: 1;
+  }
+  .active {
+    animation-name: spin;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+  }
+  @keyframes spin {
+    from {
+      transform: translateY(200px) scale(0) rotateY(360deg);
+    }
+  }

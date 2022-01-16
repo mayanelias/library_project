@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { RiHeartAddFill } from "react-icons/ri";
+import ReactTooltip from "react-tooltip";
 import "./search.css";
 function Search({ setReadingList, readingList }) {
   const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [showSearchResults, setShowSearchResults] = useState([]);
   useEffect(getBooks, []);
   function getBooks() {
-    setLoading(true);
     axios
       .get("./data/books.json")
       .then(function (response) {
-        setLoading(false);
         setBooks(response.data);
       })
       .catch(function (error) {
@@ -24,6 +22,7 @@ function Search({ setReadingList, readingList }) {
     const tempArray = [...books];
     const tempReadingList = [...readingList];
     let foundBook = tempArray.find((book) => book.id == id);
+    // if (!foundBook.id) return alert("aaaa");
     tempReadingList.push(foundBook);
     setReadingList(tempReadingList);
   }
@@ -41,12 +40,20 @@ function Search({ setReadingList, readingList }) {
   }
   let searchElement = showSearchResults.map((book) => {
     return (
-      <div key={book.id}>
-        <img src={book.img} />
+      <div className="card" key={book.id}>
+        <img onClick={() => addBookToReadingList(book.id)} src={book.img} />
         <h1>{book.title}</h1>
         <h1>{book.author}</h1>
         <h1 id="hide">{book.description}</h1>
-        <button onClick={() => addBookToReadingList(book.id)}></button>
+        <button
+          className="add"
+          onClick={() => addBookToReadingList(book.id)}
+        >
+          <RiHeartAddFill />
+        </button>
+        <ReactTooltip id="addBookToTheReadingList" place="top" effect="solid">
+          Add Book To The Reading-List
+        </ReactTooltip>
       </div>
     );
   });
@@ -58,9 +65,17 @@ function Search({ setReadingList, readingList }) {
           <h2>{book.title}</h2>
           <h4>{book.author}</h4>
           <p id="hide">{book.description}</p>
-          <button className="add" onClick={() => addBookToReadingList(book.id)}>
-            <RiHeartAddFill/>
+          <button
+            className="add"
+            data-tip
+            data-for="addBookToTheReadingList"
+            onClick={() => addBookToReadingList(book.id)}
+          >
+            <RiHeartAddFill />
           </button>
+          <ReactTooltip id="addBookToTheReadingList" place="top" effect="solid">
+            Add Book To The Reading-List
+          </ReactTooltip>
         </div>
       );
     }
@@ -68,7 +83,7 @@ function Search({ setReadingList, readingList }) {
   return (
     <>
       <input
-      style={{color:"black"}}
+        style={{ color: "black" }}
         type="text"
         placeholder="...Search"
         onChange={(e) => {

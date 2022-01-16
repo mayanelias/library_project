@@ -1,11 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
-import fireBaseApi from "../logic/key";
-const Login = ({ setAuth, USERֹֹ_INFORMATIOM, flag }) => {
+import fireBaseApi from "../../logic/key";
+import { Spinner } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./login.css";
+const Login = ({ setAuth, USERֹֹ_INFORMATIOM }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorFromServer, setErrorFromServer] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [disabeld, setDisabeld] = useState(false);
   const loginForm = () => {
     setLoading(true);
     axios
@@ -26,21 +30,27 @@ const Login = ({ setAuth, USERֹֹ_INFORMATIOM, flag }) => {
             USERֹֹ_INFORMATIOM,
             JSON.stringify(response.data)
           );
-        }, 3000);
+        }, 2000);
       })
       .catch(function (error) {
         console.log(error);
         setErrorFromServer(true);
+        setLoading(false);
       });
   };
+  const formValidation = () => {
+    return email.length && password.length;
+  };
   return (
-    <div className={flag ? "show" : "active"}>
+    <div className="show active">
       <div className="login-form">
         <div className="form-box">
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              loginForm();
+              if (formValidation()) {
+                loginForm();
+              }
             }}
           >
             <h1 className="login-text">Sign-In</h1>
@@ -50,7 +60,9 @@ const Login = ({ setAuth, USERֹֹ_INFORMATIOM, flag }) => {
               type="email"
               name="email"
               className="login-box"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value), setDisabeld(() => formValidation());
+              }}
             />
             <label>Password</label>
             <br></br>
@@ -58,20 +70,30 @@ const Login = ({ setAuth, USERֹֹ_INFORMATIOM, flag }) => {
               type="password"
               name="password"
               className="login-box"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value),
+                  setDisabeld(() => formValidation());
+              }}
             />
+            {loading ? (
+              <p>
+                <Spinner animation="border" variant="primarey" />
+              </p>
+            ) : (
               <input
+                disabeld={!disabeld}
                 type="submit"
                 value="SiGN-IN"
                 className="login-btn"
               />
+            )}
           </form>
-          <p style={{ color: "red" }}>
+          <h5 style={{ color: "red" }}>
             {errorFromServer ? "error from server" : ""}
-          </p>
+          </h5>
         </div>
       </div>
     </div>
-  )
+  );
 };
 export default Login;

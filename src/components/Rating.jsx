@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
-const Rating = ({complitedList,index,setComplitedList,details}) => {
+const Rating = ({completedList,index,setCompletedList}) => {
   const [rating, setRating] = useState(false);
   const [hover, setHover] = useState(false);
   function keepRate(rate){
-      const temp=[...complitedList]
+      const temp=[...completedList]
       temp[index].rate=rate
-      setComplitedList(temp)
+      setCompletedList(temp)
   }
   return (
     <div> 

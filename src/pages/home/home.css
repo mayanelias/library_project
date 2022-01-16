@@ -94,13 +94,6 @@ body {
     padding-top: 5vh;
     font-size: "Harry Potter", sans-serif;
   }
-  
-  label {
-    color: white;
-    width: 100%;
-    text-align: center;
-  }
-  
   .login-box {
     border: 1px solid lightgrey;
     display: flex;
@@ -117,7 +110,6 @@ body {
     transition: 1s;
     outline: none;
   }
-  
   .login-btn {
     width: 75%;
     justify-content: center;
@@ -140,18 +132,6 @@ body {
     letter-spacing: 4px;
     background-color: #7fffd4;
     color: #1e90ff;
-  }
-  
-  .show {
-    display: block;
-    margin-left: 35%;
-    transition: 800ms;
-    opacity: 1;
-  } 
-  
-  .active {
-    opacity: 0;
-    transform: translateY(100px) scale(0) rotateY(180deg);
   }
   input {
     color: whitesmoke;

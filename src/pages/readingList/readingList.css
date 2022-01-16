@@ -9,11 +9,6 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-/* #hide:hover {
-    white-space: normal;
-    overflow: visible;
-    width: 100%;
-  }  */
 .add {
   color: black;
   font-size: 50px;

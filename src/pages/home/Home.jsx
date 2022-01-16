@@ -1,20 +1,15 @@
 import React, { useState } from "react";
-import Register from "../Register";
-import Login from "../Login";
+import Register from "../register/Register";
+import Login from "../login/Login";
 import "./home.css";
-import { Redirect } from "react-router-dom";
 const Home = ({ setAuth, USERֹֹ_INFORMATIOM }) => {
   const [flag, setFlag] = useState({ register: false, login: false });
-  const [redirect, setRedirect] = useState(false);
   const { register, login } = flag;
-if(redirect){
-return <Redirect to="/Home"/>
-}
   const showRegister = register ? (
     <Register
       setAuth={setAuth}
       USERֹֹ_INFORMATIOM={USERֹֹ_INFORMATIOM}
-      flag={flag}     
+      flag={true}     
     />
   ) : (
     ""
@@ -23,7 +18,7 @@ return <Redirect to="/Home"/>
     <Login
       setAuth={setAuth}
       USERֹֹ_INFORMATIOM={USERֹֹ_INFORMATIOM}
-      flag={flag}      
+      flag={true}      
     />
   ) : (
     ""
@@ -41,6 +36,7 @@ return <Redirect to="/Home"/>
         ) : (
           ""
           )}
+
         {!login ? (
           <button
           className="login"
@@ -51,7 +47,8 @@ return <Redirect to="/Home"/>
         ) : (
           ""
           )}
-        <h1 onClick={()=>setRedirect(true)} className="title">Welcome To The Libarey</h1>
+          
+        <h1 onClick={()=>setFlag({ register: false, login: false })} className="title">Welcome To The Library</h1>
         {showRegister} {showLogin}
       </div>
       <img

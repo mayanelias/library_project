@@ -13,7 +13,7 @@ const Details = ({ details,showRates }) => {
   return (
     <div>
       <div>
-        {showRates == "complited"
+        {showRates == "completed"
           ? [...Array(5)].map((star, i) => (
               <FaStar
                 color={i < details[0].rate ? "orange" : "gray"}

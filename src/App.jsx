@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Switch, Route, Link, Redirect } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Home from "./pages/home/Home";
@@ -10,23 +10,27 @@ import "./App.css";
 function App() {
   const [auth, setAuth] = useState(null);
   const [readingList, setReadingList] = useState([]);
-  const [complitedList, setComplitedList] = useState([]);
+  const [completedList, setCompletedList] = useState([]);
   const [details, setDetails] = useState("");
   const [showRates, setShowRates] = useState("");
   const USERֹֹ_INFORMATIOM = "userInformation";
+  useEffect(()=>{
+  const userInformation = JSON.parse(localStorage.getItem(USERֹֹ_INFORMATIOM))
+  userInformation ? setAuth(userInformation) : null
+  },[])
   return (
     <BrowserRouter>
       <div className="App">
+        {auth ? (
+          <>
         <button className="signOut"
           onClick={() => {
-            localStorage.setItem(USERֹֹ_INFORMATIOM, JSON.stringify(""));
+            localStorage.clear();
             setAuth(null);
           }}
         >
           sign out
         </button>
-        {auth ? (
-          <>
             <Redirect to="/Search" />
             <Link to="/CompletedList">CompletedList</Link>
             <Link to="/ReadingList">ReadingList</Link>
@@ -55,8 +59,8 @@ function App() {
                   <ReadingList
                     readingList={readingList}
                     setReadingList={setReadingList}
-                    complitedList={complitedList}
-                    setComplitedList={setComplitedList}
+                    completedList={completedList}
+                    setCompletedList={setCompletedList}
                     details={details}
                     setDetails={setDetails}
                     setShowRates={setShowRates}
@@ -68,8 +72,8 @@ function App() {
                 path="/CompletedList"
                 render={() => (
                   <CompletedList
-                    complitedList={complitedList}
-                    setComplitedList={setComplitedList}
+                  completedList={completedList}
+                  setCompletedList={setCompletedList}
                     details={details}
                     setDetails={setDetails}
                     setShowRates={setShowRates}
@@ -84,7 +88,7 @@ function App() {
                     details={details}
                     setDetails={setDetails}
                     readingList={readingList}
-                    complitedList={complitedList}
+                    completedList={completedList}
                     showRates={showRates}
                   />
                 )}
